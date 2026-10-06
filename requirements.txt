@@ -1,0 +1,36 @@
+# GUI
+PySide6==6.7.3
+
+# Speech recognition - OpenAI Whisper weights on the CTranslate2 runtime.
+# PyAV ships its own FFmpeg, so no separate FFmpeg install is needed.
+faster-whisper==1.1.1
+# ctranslate2 must match the cuDNN major version installed below: 4.4.x and
+# earlier link cuDNN 8, 4.5.0+ links cuDNN 9. Mismatching them fails at run
+# time with 'Could not locate cudnn_ops_infer64_8.dll'.
+ctranslate2==4.5.0
+# faster-whisper imports requests directly without declaring it; it used to
+# arrive via huggingface-hub, which moved to httpx in 1.x.
+requests>=2.31
+
+# CUDA libraries as plain pip wheels, so no CUDA Toolkit install is required.
+# cuDNN 9.1 pairs with ctranslate2 4.5. cuda-runtime supplies cudart64_12.dll,
+# which the cu124 build of llama-cpp-python needs; without it llama.dll loads
+# but its ggml-cuda dependency does not, and the summary step fails.
+nvidia-cublas-cu12==12.4.5.8; platform_system == "Windows"
+nvidia-cudnn-cu12==9.1.0.70; platform_system == "Windows"
+nvidia-cuda-runtime-cu12==12.4.127; platform_system == "Windows"
+
+# Speaker diarisation. ONNX only - no PyTorch, no Hugging Face token, and no
+# gated model licences, unlike pyannote/WhisperX. Runs on the CPU.
+sherpa-onnx>=1.10
+
+# Local summarisation. llama-cpp-python is NOT listed here: it has no wheel on
+# PyPI for Windows, so install.ps1 pulls it from the project's own wheel index
+# (CUDA build first, CPU build as a fallback).
+huggingface-hub>=0.24,<1.0
+
+# PDF output
+reportlab>=4.2
+
+# Icon generation
+pillow>=10.0

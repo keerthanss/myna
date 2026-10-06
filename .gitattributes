@@ -1,0 +1,16 @@
+# Normalise text to LF in the repository; check out with native line endings.
+* text=auto
+
+# Windows scripts always check out with CRLF - including on a Mac or Linux
+# clone, and in GitHub's "Download ZIP". cmd.exe mis-parses labels and GOTOs
+# in LF-only batch files, which fails in confusing ways.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binary: never diffed, never line-ending converted.
+*.ico binary
+*.png binary
+
+# No Git LFS. Models are never committed (see .gitignore), and the only
+# binaries are two small icons, which LFS would add friction to for no gain.

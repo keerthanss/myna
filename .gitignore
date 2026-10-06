@@ -1,0 +1,46 @@
+# The repository holds only what someone needs to run Myna on their machine:
+# the application code, its assets, the installer, and the README. Everything
+# below is either large and recreated by Install.bat, specific to this machine,
+# or development material that stays local.
+
+# --- Recreated by Install.bat ----------------------------------------------
+# Private Python environment, ~4 GB including the CUDA libraries.
+venv/
+# Launcher written by install.ps1, pointing at this install's venv.
+Myna.cmd
+
+# --- This machine's data ---------------------------------------------------
+# Downloaded models (several GB, fetched again on first use), plus
+# settings.ini, config.json and the log - preferences and paths for this PC.
+data/
+
+# --- Model files, wherever they land ---------------------------------------
+# Models belong in data/, which is already ignored. These catch one dropped
+# anywhere else, so it can never reach the repository by accident.
+*.gguf
+*.onnx
+*.safetensors
+*.bin
+*.tar.bz2
+
+# --- Development material, kept local --------------------------------------
+SPEC.md
+HANDOFF.md
+submission/
+tools/selftest.py
+tools/ui_smoke_test.py
+# Optional Inno Setup wrapper: untested, and still carries pre-rename branding.
+installer/
+# A stale pre-rename copy of the code, left by a development session that
+# moved folders. Superseded by app/.
+WhisperStudio/
+
+# --- Python, editors, OS ---------------------------------------------------
+__pycache__/
+*.py[cod]
+*.log
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
